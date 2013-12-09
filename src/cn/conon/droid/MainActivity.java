@@ -1,5 +1,6 @@
-package cn.conon.droid.demo;
+package cn.conon.droid;
 
+import cn.conon.droid.demo.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

@@ -1,4 +1,4 @@
-package cn.conon.droid.demo.task;
+package cn.conon.droid.task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
