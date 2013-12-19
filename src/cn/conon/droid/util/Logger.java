@@ -67,29 +67,31 @@ public class Logger {
      */
     public static void v(final String tag, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
-            Log.v(tag, logFormat(format, args));
+            Log.v(tag, buildMessage(format, args));
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param cause
+     * @param format
+     * @param args
      */
-    public static void v(final String tag, String message, Throwable cause) {
+    public static void v(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
-            Log.v(tag, appendThreadInfo(message), cause);
+            Log.v(tag, buildMessage(format, args), cause);
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param intent
+     * @param format
+     * @param args
      */
-    public static void v(final String tag, String message, Intent intent) {
+    public static void v(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
-            Log.v(tag, buildIntent(appendThreadInfo(message), intent));
+            Log.v(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
@@ -100,29 +102,31 @@ public class Logger {
      */
     public static void d(final String tag, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
-            Log.d(tag, logFormat(format, args));
+            Log.d(tag, buildMessage(format, args));
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param cause
+     * @param format
+     * @param args
      */
-    public static void d(final String tag, String message, Throwable cause) {
+    public static void d(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
-            Log.d(tag, appendThreadInfo(message), cause);
+            Log.d(tag, buildMessage(format, args), cause);
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param intent
+     * @param format
+     * @param args
      */
-    public static void d(final String tag, String message, Intent intent) {
+    public static void d(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
-            Log.d(tag, buildIntent(appendThreadInfo(message), intent));
+            Log.d(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
@@ -133,29 +137,31 @@ public class Logger {
      */
     public static void i(final String tag, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
-            Log.i(tag, logFormat(format, args));
+            Log.i(tag, buildMessage(format, args));
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param cause
+     * @param format
+     * @param args
      */
-    public static void i(final String tag, String message, Throwable cause) {
+    public static void i(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
-            Log.i(tag, appendThreadInfo(message), cause);
+            Log.i(tag, buildMessage(format, args), cause);
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param intent
+     * @param format
+     * @param args
      */
-    public static void i(final String tag, String message, Intent intent) {
+    public static void i(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
-            Log.i(tag, buildIntent(appendThreadInfo(message), intent));
+            Log.i(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
@@ -166,29 +172,31 @@ public class Logger {
      */
     public static void w(final String tag, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
-            Log.w(tag, logFormat(format, args));
+            Log.w(tag, buildMessage(format, args));
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param cause
+     * @param format
+     * @param args
      */
-    public static void w(final String tag, String message, Throwable cause) {
+    public static void w(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
-            Log.w(tag, appendThreadInfo(message), cause);
+            Log.w(tag, buildMessage(format, args), cause);
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param intent
+     * @param format
+     * @param args
      */
-    public static void w(final String tag, String message, Intent intent) {
+    public static void w(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
-            Log.w(tag, buildIntent(appendThreadInfo(message), intent));
+            Log.w(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
@@ -199,29 +207,66 @@ public class Logger {
      */
     public static void e(final String tag, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
-            Log.e(tag, logFormat(format, args));
+            Log.e(tag, buildMessage(format, args));
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param cause
+     * @param format
+     * @param args
      */
-    public static void e(final String tag, String message, Throwable cause) {
+    public static void e(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
-            Log.e(tag, appendThreadInfo(message), cause);
+            Log.e(tag, buildMessage(format, args), cause);
         }
     }
 
     /**
      * @param tag
-     * @param message
      * @param intent
+     * @param format
+     * @param args
      */
-    public static void e(final String tag, String message, Intent intent) {
+    public static void e(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
-            Log.e(tag, buildIntent(appendThreadInfo(message), intent));
+            Log.e(tag, buildIntent(buildMessage(format, args), intent));
+        }
+    }
+
+    /**
+     * @param tag
+     * @param format
+     * @param args
+     */
+    public static void wtf(final String tag, String format, Object... args) {
+        if (canLog(tag, Log.ASSERT)) {
+            Log.wtf(tag, buildMessage(format, args));
+        }
+    }
+
+    /**
+     * @param tag
+     * @param cause
+     * @param format
+     * @param args
+     */
+    public static void wtf(final String tag, Throwable cause, String format, Object... args) {
+        if (canLog(tag, Log.ASSERT)) {
+            Log.wtf(tag, buildMessage(format, args), cause);
+        }
+    }
+
+    /**
+     * @param tag
+     * @param intent
+     * @param format
+     * @param args
+     */
+    public static void wtf(final String tag, Intent intent, String format, Object... args) {
+        if (canLog(tag, Log.ASSERT)) {
+            Log.wtf(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
@@ -241,7 +286,7 @@ public class Logger {
                 || (!Environment.getExternalStorageDirectory().canWrite())) {
             return;
         }
-        String path = Environment.getExternalStorageDirectory().getPath() + "/"
+        String path = Environment.getExternalStorageDirectory().getPath() + File.separator
                 + filename;
 
         writeBytes(path, str);
@@ -264,12 +309,12 @@ public class Logger {
             return;
         }
         String directory = Environment.getExternalStorageDirectory().getPath()
-                + "/" + folder;
+                + File.separator + folder;
         File directoryFile = new File(directory);
         if (!directoryFile.exists()) {
             directoryFile.mkdir();
         }
-        String path = directory + "/" + filename;
+        String path = directory + File.separator + filename;
 
         writeBytes(path, str);
     }
@@ -303,60 +348,13 @@ public class Logger {
     // -------------------------------------------------------------------------------------------
 
     /**
-     * @param format
-     * @param args
-     * @return
-     */
-    private static String logFormat(String format, Object... args) {
-        for (int i = 0; i < args.length; i++) {
-            if (args[i] instanceof String[]) {
-                args[i] = prettyArray((String[]) args[i]);
-            }
-        }
-        String s = String.format(format, args);
-        return appendThreadInfo(s);
-    }
-
-    /**
-     * @param array
-     * @return
-     */
-    private static String prettyArray(String[] array) {
-        try {
-            if (array.length == 0) {
-                return "[]";
-            }
-            StringBuilder sb = new StringBuilder("[");
-            int len = array.length - 1;
-            for (int i = 0; i < len; i++) {
-                sb.append(array[i]);
-                sb.append(", ");
-            }
-            sb.append(array[len]);
-            sb.append("]");
-            return sb.toString();
-        } catch (Exception e) {
-            return "null";
-        }
-    }
-
-    /**
-     * @param message
-     * @return
-     */
-    private static String appendThreadInfo(String message) {
-        return "[" + Thread.currentThread().getId() + "," + Thread.currentThread().getName() + "] "
-                + message;
-    }
-
-    /**
-     * @param message
+     * @param msg
      * @param intent
      * @return
      */
-    private static String buildIntent(String message, Intent intent) {
+    private static String buildIntent(String msg, Intent intent) {
         StringBuffer sb = new StringBuffer();
-        sb.append(message);
+        sb.append(msg);
         sb.append('\n');
         if (intent == null) {
             sb.append("Intent is null.");
@@ -387,7 +385,7 @@ public class Logger {
      * calling thread ID and method name.
      */
     private static String buildMessage(String format, Object... args) {
-        String msg = (args == null) ? format : String.format(Locale.US, format, args);
+        String msg = formatMessage(format, args);
         StackTraceElement[] trace = new Throwable().fillInStackTrace().getStackTrace();
 
         String caller = "<unknown>";
@@ -404,8 +402,45 @@ public class Logger {
                 break;
             }
         }
-        return String.format(Locale.US, "[%d] %s: %s",
-                Thread.currentThread().getId(), caller, msg);
+        return String.format(Locale.US, "[%d,%s] %s: %s",
+                Thread.currentThread().getId(), Thread.currentThread().getName(), caller, msg);
+    }
+
+    /**
+     * @param format
+     * @param args
+     * @return
+     */
+    private static String formatMessage(String format, Object... args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof String[]) {
+                args[i] = prettyArray((String[]) args[i]);
+            }
+        }
+        return String.format(format, args);
+    }
+
+    /**
+     * @param array
+     * @return
+     */
+    private static String prettyArray(String[] array) {
+        try {
+            if (array.length == 0) {
+                return "[]";
+            }
+            StringBuilder sb = new StringBuilder("[");
+            int len = array.length - 1;
+            for (int i = 0; i < len; i++) {
+                sb.append(array[i]);
+                sb.append(", ");
+            }
+            sb.append(array[len]);
+            sb.append("]");
+            return sb.toString();
+        } catch (Exception e) {
+            return "null";
+        }
     }
 
     // -------------------------------------------------------------------------------------------
