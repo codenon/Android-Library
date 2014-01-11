@@ -360,24 +360,41 @@ public class Logger {
             sb.append("Intent is null.");
             return sb.toString();
         }
-        sb.append("Intent action=" + intent.getAction());
+        sb.append("Intent action=" + intent.getAction() + '\n');
 
         // build extras
         Bundle extras = intent.getExtras();
+        sb.append(buildBundle(extras));
+        return sb.toString();
+    }
+
+    /**
+     * build extras
+     *
+     * @param extras
+     * @return
+     */
+    private static StringBuffer buildBundle(Bundle extras) {
+        StringBuffer sb = new StringBuffer();
         if (extras != null) {
             Set<String> keys = extras.keySet();
             if (keys == null || (keys != null && keys.isEmpty())) {
-                sb.append("    extras: none");
+                sb.append("extras:none");
             } else {
-                sb.append("    extras:");
+                sb.append("extras:\n");
                 for (String key : keys) {
-                    sb.append("       " + key + "=" + extras.get(key));
+                    Object value = extras.get(key);
+                    if (value instanceof Bundle) {
+                        sb.append(key + "=" + buildBundle((Bundle) value) + '\n');
+                    } else {
+                        sb.append(key + "=" + value + '\n');
+                    }
                 }
             }
         } else {
             sb.append("    extras: none");
         }
-        return sb.toString();
+        return sb;
     }
 
     /**
