@@ -49,10 +49,11 @@ public class Logger {
     }
 
     private static boolean canLog(final String tag, int level) {
-        if (BuildConfig.DEBUG) {
-            return ENABLE_LOGS_IN_DEBUG && Log.isLoggable(tag, level);
-        }
-        return ENABLE_LOGS_IN_RELEASE;
+//        if (BuildConfig.DEBUG) {
+//            return ENABLE_LOGS_IN_DEBUG && Log.isLoggable(tag, level);
+//        }
+//        return ENABLE_LOGS_IN_RELEASE;
+        return true;
     }
 
     private static boolean canWriteFile() {
