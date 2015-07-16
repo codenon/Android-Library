@@ -1,19 +1,18 @@
 
 package cn.conon.android.modules.utils;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Set;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * 日志工具类
@@ -25,6 +24,7 @@ public class Logger {
     private static final String LOG_PREFIX = "cn.conon_";
     private static final int LOG_PREFIX_LENGTH = LOG_PREFIX.length();
     private static final int MAX_LOG_TAG_LENGTH = 23;
+    private static String TAG = LOG_PREFIX;
 
     /**
      * Whether the logs are enabled in debug builds or not.
@@ -33,7 +33,7 @@ public class Logger {
     /**
      * Whether the logs are enabled in release builds or not.
      */
-    private static final boolean ENABLE_LOGS_IN_RELEASE = false;
+    private static final boolean ENABLE_LOGS_IN_RELEASE = true;
 
     public static String makeLogTag(Class<?> cls) {
         return makeLogTag(cls.getSimpleName());
@@ -41,19 +41,17 @@ public class Logger {
 
     public static String makeLogTag(String str) {
         if (str.length() > MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH) {
-            return LOG_PREFIX
-                    + str.substring(0, MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH
-                    - 1);
+            return LOG_PREFIX + str.substring(0, MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH - 1);
         }
         return LOG_PREFIX + str;
     }
 
     private static boolean canLog(final String tag, int level) {
-//        if (BuildConfig.DEBUG) {
-//            return ENABLE_LOGS_IN_DEBUG && Log.isLoggable(tag, level);
-//        }
-//        return ENABLE_LOGS_IN_RELEASE;
-        return true;
+        if (BuildConfig.DEBUG) {
+            return ENABLE_LOGS_IN_DEBUG /*&& Log.isLoggable(tag, level)*/;
+        }
+        return ENABLE_LOGS_IN_RELEASE;
+
     }
 
     private static boolean canWriteFile() {
@@ -61,220 +59,199 @@ public class Logger {
             return ENABLE_LOGS_IN_DEBUG;
         }
         return ENABLE_LOGS_IN_RELEASE;
+
     }
 
     // -------------------------------------------------------------------------------------------
+    public static void v(String format, Object... args) {
+        vt(TAG, buildMessage(format, args));
+    }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void v(final String tag, String format, Object... args) {
+    public static void v(Throwable cause, String format, Object... args) {
+        vt(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void v(Intent intent, String format, Object... args) {
+        vt(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void vt(final String tag, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
             Log.v(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void v(final String tag, Throwable cause, String format, Object... args) {
+    public static void vt(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
             Log.v(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void v(final String tag, Intent intent, String format, Object... args) {
+    public static void vt(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.VERBOSE)) {
             Log.v(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void d(final String tag, String format, Object... args) {
+    // -------------------------------------------------------------------------------------------
+
+    public static void d(String format, Object... args) {
+        dt(TAG, buildMessage(format, args));
+    }
+
+    public static void d(Throwable cause, String format, Object... args) {
+        dt(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void d(Intent intent, String format, Object... args) {
+        dt(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void dt(final String tag, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
             Log.d(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void d(final String tag, Throwable cause, String format, Object... args) {
+    public static void dt(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
             Log.d(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void d(final String tag, Intent intent, String format, Object... args) {
+    public static void dt(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.DEBUG)) {
             Log.d(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void i(final String tag, String format, Object... args) {
+    // -------------------------------------------------------------------------------------------
+
+    public static void i(String format, Object... args) {
+        it(TAG, buildMessage(format, args));
+    }
+
+    public static void i(Throwable cause, String format, Object... args) {
+        it(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void i(Intent intent, String format, Object... args) {
+        it(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void it(final String tag, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
             Log.i(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void i(final String tag, Throwable cause, String format, Object... args) {
+    public static void it(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
             Log.i(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void i(final String tag, Intent intent, String format, Object... args) {
+    public static void it(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.INFO)) {
             Log.i(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void w(final String tag, String format, Object... args) {
+    // -------------------------------------------------------------------------------------------
+
+    public static void w(String format, Object... args) {
+        wt(TAG, buildMessage(format, args));
+    }
+
+    public static void w(Throwable cause, String format, Object... args) {
+        wt(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void w(Intent intent, String format, Object... args) {
+        wt(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void wt(final String tag, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
             Log.w(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void w(final String tag, Throwable cause, String format, Object... args) {
+    public static void wt(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
             Log.w(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void w(final String tag, Intent intent, String format, Object... args) {
+    public static void wt(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.WARN)) {
             Log.w(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void e(final String tag, String format, Object... args) {
+    // -------------------------------------------------------------------------------------------
+
+    public static void e(String format, Object... args) {
+        et(TAG, buildMessage(format, args));
+    }
+
+    public static void e(Throwable cause, String format, Object... args) {
+        et(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void e(Intent intent, String format, Object... args) {
+        et(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void et(final String tag, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
             Log.e(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void e(final String tag, Throwable cause, String format, Object... args) {
+    public static void et(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
             Log.e(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void e(final String tag, Intent intent, String format, Object... args) {
+    public static void et(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.ERROR)) {
             Log.e(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
 
-    /**
-     * @param tag
-     * @param format
-     * @param args
-     */
-    public static void wtf(final String tag, String format, Object... args) {
+    // -------------------------------------------------------------------------------------------
+
+    public static void wtf(String format, Object... args) {
+        wtft(TAG, buildMessage(format, args));
+    }
+
+    public static void wtf(Throwable cause, String format, Object... args) {
+        wtft(TAG, buildMessage(format, args), cause);
+    }
+
+    public static void wtf(Intent intent, String format, Object... args) {
+        wtft(TAG, buildIntent(buildMessage(format, args), intent));
+    }
+
+    public static void wtft(final String tag, String format, Object... args) {
         if (canLog(tag, Log.ASSERT)) {
             Log.wtf(tag, buildMessage(format, args));
         }
     }
 
-    /**
-     * @param tag
-     * @param cause
-     * @param format
-     * @param args
-     */
-    public static void wtf(final String tag, Throwable cause, String format, Object... args) {
+    public static void wtft(final String tag, Throwable cause, String format, Object... args) {
         if (canLog(tag, Log.ASSERT)) {
             Log.wtf(tag, buildMessage(format, args), cause);
         }
     }
 
-    /**
-     * @param tag
-     * @param intent
-     * @param format
-     * @param args
-     */
-    public static void wtf(final String tag, Intent intent, String format, Object... args) {
+    public static void wtft(final String tag, Intent intent, String format, Object... args) {
         if (canLog(tag, Log.ASSERT)) {
             Log.wtf(tag, buildIntent(buildMessage(format, args), intent));
         }
     }
-
     // -------------------------------------------------------------------------------------------
 
     /**
@@ -287,14 +264,11 @@ public class Logger {
         if (!canWriteFile()) {
             return;
         }
-        if ((!Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState()))
+        if ((!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
                 || (!Environment.getExternalStorageDirectory().canWrite())) {
             return;
         }
-        String path = Environment.getExternalStorageDirectory().getPath() + File.separator
-                + filename;
-
+        String path = Environment.getExternalStorageDirectory().getPath() + File.separator + filename;
         writeBytes(path, str);
     }
 
@@ -309,26 +283,19 @@ public class Logger {
         if (!canWriteFile()) {
             return;
         }
-        if ((!Environment.MEDIA_MOUNTED.equals(Environment
-                .getExternalStorageState()))
+        if ((!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
                 || (!Environment.getExternalStorageDirectory().canWrite())) {
             return;
         }
-        String directory = Environment.getExternalStorageDirectory().getPath()
-                + File.separator + folder;
+        String directory = Environment.getExternalStorageDirectory().getPath() + File.separator + folder;
         File directoryFile = new File(directory);
         if (!directoryFile.exists()) {
             directoryFile.mkdir();
         }
         String path = directory + File.separator + filename;
-
         writeBytes(path, str);
     }
 
-    /**
-     * @param path
-     * @param str
-     */
     private static void writeBytes(String path, String str) {
         if (TextUtils.isEmpty(str)) {
             return;
@@ -344,20 +311,12 @@ public class Logger {
             }
             out.close();
             in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     // -------------------------------------------------------------------------------------------
-
-    /**
-     * @param msg
-     * @param intent
-     * @return
-     */
     private static String buildIntent(String msg, Intent intent) {
         StringBuffer sb = new StringBuffer();
         sb.append(msg);
@@ -366,39 +325,42 @@ public class Logger {
             sb.append("Intent is null.");
             return sb.toString();
         }
-        sb.append("Intent action=" + intent.getAction() + '\n');
+        sb.append("Intent action:");
+        sb.append(intent.getAction());
+        sb.append('\n');
 
         // build extras
         Bundle extras = intent.getExtras();
+        sb.append("Intent Bundle Extras:");
         sb.append(buildBundle(extras));
         return sb.toString();
     }
 
-    /**
-     * build extras
-     *
-     * @param extras
-     * @return
-     */
-    private static StringBuffer buildBundle(Bundle extras) {
+    private static StringBuffer buildBundle(Bundle bundle) {
         StringBuffer sb = new StringBuffer();
-        if (extras != null) {
-            Set<String> keys = extras.keySet();
-            if (keys == null || (keys != null && keys.isEmpty())) {
-                sb.append("extras:none");
-            } else {
-                sb.append("extras:\n");
-                for (String key : keys) {
-                    Object value = extras.get(key);
-                    if (value instanceof Bundle) {
-                        sb.append(key + "=" + buildBundle((Bundle) value) + '\n');
-                    } else {
-                        sb.append(key + "=" + value + '\n');
-                    }
-                }
-            }
-        } else {
-            sb.append("    extras: none");
+        sb.append('\n');
+        if (bundle == null) {
+            sb.append("bundle:null");
+            return sb;
+        }
+        Set<String> keys = bundle.keySet();
+        if (keys == null) {
+            sb.append("bundle:bundle.keySet() == null");
+            return sb;
+        }
+        if (keys.isEmpty()) {
+            sb.append("bundle:bundle.keySet().isEmpty()");
+            return sb;
+        }
+        //sb.append("extras:\n");
+        for (String key : keys) {
+            Object value = bundle.get(key);
+            sb.append(key);
+            sb.append("=");
+            sb.append(value.getClass().getName());
+            sb.append("-->");
+            sb.append(value instanceof Bundle ? buildBundle((Bundle) value) : sb.append(value));
+            sb.append('\n');
         }
         return sb;
     }
@@ -417,23 +379,19 @@ public class Logger {
         for (int i = 2; i < trace.length; i++) {
             Class<?> clazz = trace[i].getClass();
             if (!clazz.equals(Logger.class)) {
+                TAG = makeLogTag(clazz);
+
                 String callingClass = trace[i].getClassName();
                 callingClass = callingClass.substring(callingClass.lastIndexOf('.') + 1);
                 callingClass = callingClass.substring(callingClass.lastIndexOf('$') + 1);
 
-                caller = callingClass + "." + trace[i].getMethodName();
+                caller = callingClass + "." + trace[i].getMethodName() + "[" + trace[i].getLineNumber() + "]";
                 break;
             }
         }
-        return String.format(Locale.US, "[%d,%s] %s: %s",
-                Thread.currentThread().getId(), Thread.currentThread().getName(), caller, msg);
+        return String.format(Locale.US, "[%d,%s] %s: %s", Thread.currentThread().getId(), Thread.currentThread().getName(), caller, msg);
     }
 
-    /**
-     * @param format
-     * @param args
-     * @return
-     */
     private static String formatMessage(String format, Object... args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof String[]) {
@@ -443,10 +401,6 @@ public class Logger {
         return String.format(format, args);
     }
 
-    /**
-     * @param array
-     * @return
-     */
     private static String prettyArray(String[] array) {
         try {
             if (array.length == 0) {

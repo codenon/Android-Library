@@ -19,9 +19,11 @@ public class TestLogger extends AndroidTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         Logger.e(TAG, "tearDown()");
+        Logger.v("","");
     }
 
     public void testLogger() throws Exception {
+        Logger.d(TAG, "testLogger()");
         Intent intent = new Intent("testaction");
         intent.putExtra("extra name", "extra value");
         Bundle bundle = new Bundle();
@@ -31,23 +33,23 @@ public class TestLogger extends AndroidTestCase {
         // adb shell setprop log.tag.cn.conon_TestLogger VEROBSE
         Logger.v(TAG, "format = %s", "args");
         Logger.v(TAG, intent, "format = %s", "Intent");
-        Logger.v(TAG, new Exception("detailMessage"), "format = %s", "Exception");
-        // adb shell setprop log.tag.cn.conon_TestLogger DEBUG
-        Logger.d(TAG, "format = %s", "args");
-        Logger.d(TAG, intent, "format = %s", "Intent");
-        Logger.d(TAG, new Exception("detailMessage"), "format = %s", "Exception");
-        Logger.i(TAG, "format = %s", "args");
-        Logger.i(TAG, intent, "format = %s", "Intent");
-        Logger.i(TAG, new Exception("detailMessage"), "format = %s", "Exception");
-        Logger.w(TAG, "format = %s", "args");
-        Logger.w(TAG, intent, "format = %s", "Intent");
-        Logger.w(TAG, new Exception("detailMessage"), "format = %s", "Exception");
-        Logger.e(TAG, "format = %s", "args");
-        Logger.e(TAG, intent, "format = %s", "Intent");
-        Logger.e(TAG, new Exception("detailMessage"), "format = %s", "Exception");
-        Logger.wtf(TAG, "format = %s", "args");
-        Logger.wtf(TAG, intent, "format = %s", "Intent");
-        Logger.wtf(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        Logger.v(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        // adb shell setprop log.tag.cn.conon_TestLogger DEBUG
+//        Logger.d(TAG, "format = %s", "args");
+//        Logger.d(TAG, intent, "format = %s", "Intent");
+//        Logger.d(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        Logger.i(TAG, "format = %s", "args");
+//        Logger.i(TAG, intent, "format = %s", "Intent");
+//        Logger.i(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        Logger.w(TAG, "format = %s", "args");
+//        Logger.w(TAG, intent, "format = %s", "Intent");
+//        Logger.w(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        Logger.e(TAG, "format = %s", "args");
+//        Logger.e(TAG, intent, "format = %s", "Intent");
+//        Logger.e(TAG, new Exception("detailMessage"), "format = %s", "Exception");
+//        Logger.wtf(TAG, "format = %s", "args");
+//        Logger.wtf(TAG, intent, "format = %s", "Intent");
+//        Logger.wtf(TAG, new Exception("detailMessage"), "format = %s", "Exception");
     }
 
     public static Test suite() {
