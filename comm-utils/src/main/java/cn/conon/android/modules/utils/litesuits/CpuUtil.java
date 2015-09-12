@@ -4,7 +4,7 @@ package cn.conon.android.modules.utils.litesuits;
 import java.io.*;
 import java.util.regex.Pattern;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * Get CPU info.
@@ -13,7 +13,6 @@ import cn.conon.android.modules.utils.Logger;
  * @date 2015-04-18
  */
 public class CpuUtil {
-    private static final String TAG = CpuUtil.class.getSimpleName();
     private static final String CPU_INFO_PATH = "/proc/cpuinfo";
     private static final String CPU_FREQ_NULL = "N/A";
     private static final String CMD_CAT = "/system/bin/cat";
@@ -31,7 +30,7 @@ public class CpuUtil {
      */
     public static String printCpuInfo() {
         String info = FileUtil.getFileOutputString(CPU_INFO_PATH);
-        Logger.i(TAG, "_______  CPU :   \n" + info);
+        Logger.i("_______  CPU :   \n" + info);
         return info;
     }
 
@@ -96,7 +95,7 @@ public class CpuUtil {
             bufferedReader.close();
             String[] array = line.split(":\\s+", 2);
             if (array.length > 1) {
-                Logger.i(TAG, array[1]);
+                Logger.i(array[1]);
                 CPU_NAME = array[1];
             }
         } catch (IOException e) {
@@ -163,7 +162,7 @@ public class CpuUtil {
             }
             in.close();
             process.destroy();
-            Logger.i(TAG, "CMD: " + sb.toString());
+            Logger.i("CMD: " + sb.toString());
             return sb.toString();
         } catch (IOException ex) {
             ex.printStackTrace();

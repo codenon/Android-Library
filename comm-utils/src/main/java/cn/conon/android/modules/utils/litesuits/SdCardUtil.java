@@ -8,7 +8,7 @@ import android.os.StatFs;
 import java.io.*;
 import java.util.ArrayList;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * Get SD card info.
@@ -17,8 +17,6 @@ import cn.conon.android.modules.utils.Logger;
  * @date 2015-04-19
  */
 public class SdCardUtil {
-    private static final String TAG = SdCardUtil.class.getSimpleName();
-
     /**
      * is sd card available.
      *
@@ -63,19 +61,19 @@ public class SdCardUtil {
             bufferedReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(p.getInputStream())));
             String lineStr;
             while ((lineStr = bufferedReader.readLine()) != null) {
-                Logger.i(TAG, "proc/mounts:   " + lineStr);
+                Logger.i("proc/mounts:   " + lineStr);
                 if (lineStr.contains("sdcard")
                         && lineStr.contains(".android_secure")) {
                     String[] strArray = lineStr.split(" ");
                     if (strArray.length >= 5) {
                         sdcard = strArray[1].replace("/.android_secure", "");
-                        Logger.i(TAG, "find sd card path:   " + sdcard);
+                        Logger.i("find sd card path:   " + sdcard);
                         return sdcard;
                     }
                 }
                 if (p.waitFor() != 0 && p.exitValue() == 1) {
                     // p.exitValue()==0表示正常结束，1：非正常结束
-                    Logger.e(TAG, cmd + " 命令执行失败");
+                    Logger.e(cmd + " 命令执行失败");
                 }
             }
         } catch (Exception e) {
@@ -90,7 +88,7 @@ public class SdCardUtil {
             }
         }
         sdcard = Environment.getExternalStorageDirectory().getPath();
-        Logger.i(TAG, "not find sd card path return default:   " + sdcard);
+        Logger.i("not find sd card path return default:   " + sdcard);
         return sdcard;
     }
 
@@ -107,7 +105,7 @@ public class SdCardUtil {
             String line;
             BufferedReader br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
-                Logger.i(TAG, "mount:  " + line);
+                Logger.i("mount:  " + line);
                 if (line.contains("secure")) {
                     continue;
                 }
@@ -175,7 +173,7 @@ public class SdCardUtil {
                 sd.totalBytes = sf.getTotalBytes();
             }
         }
-        Logger.i(TAG, sd.toString());
+        Logger.i(sd.toString());
         return sd;
     }
 

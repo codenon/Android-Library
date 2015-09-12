@@ -9,7 +9,7 @@ import android.os.SystemClock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * 手机信息 & MAC地址 & 开机时间
@@ -18,7 +18,6 @@ import cn.conon.android.modules.utils.Logger;
  * @date 2014-09-25
  */
 public class AndroidUtil {
-    private static final String TAG = AndroidUtil.class.getSimpleName();
 
     /**
      * 获取 MAC 地址
@@ -29,7 +28,7 @@ public class AndroidUtil {
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
         String mac = info.getMacAddress();
-        Logger.i(TAG, " MAC：" + mac);
+        Logger.i(" MAC：" + mac);
         return mac;
     }
 
@@ -40,7 +39,7 @@ public class AndroidUtil {
         long ut = SystemClock.elapsedRealtime() / 1000;
         int h = (int) ((ut / 3600));
         int m = (int) ((ut / 60) % 60);
-        Logger.i(TAG, h + ":" + m);
+        Logger.i(h + ":" + m);
         return h + ":" + m;
     }
 
@@ -88,7 +87,7 @@ public class AndroidUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             sb.append("\nSERIAL             :").append(Build.SERIAL);
         }
-        Logger.i(TAG, sb.toString());
+        Logger.i(sb.toString());
         return sb.toString();
     }
 }

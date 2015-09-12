@@ -14,7 +14,7 @@ import android.os.Looper;
 
 import java.util.ArrayList;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * @author MaTianyu
@@ -22,14 +22,13 @@ import cn.conon.android.modules.utils.Logger;
  */
 public class NotificationUtil {
     private static int LedID = 0;
-    private static final String TAG = NotificationUtil.class.getSimpleName();
 
     public static void notification(Context context, int icon, String ticker, String title, String msg, Uri uri) {
         notification(context, icon, ticker, title, msg, uri, null);
     }
 
     public static void notification(Context context, int icon, String ticker, String title, String msg, Uri uri, String activityClassName) {
-        Logger.i(TAG, "notiry uri :" + uri);
+        Logger.i("notiry uri :" + uri);
         // 设置通知的事件消息
         Intent intent = new Intent();
         if (uri != null) {
@@ -71,7 +70,7 @@ public class NotificationUtil {
 
             PendingIntent contentItent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             notification.tickerText = ticker;
-            notification.setLatestEventInfo(context, title, msg, contentItent);
+            //notification.setLatestEventInfo(context, title, msg, contentItent);
             // 把Notification传递给NotificationManager
             notificationManager.notify(0, notification);
         }

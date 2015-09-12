@@ -3,14 +3,13 @@ package cn.conon.android.modules.utils.litesuits;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * @author MaTianyu
  * @date 2015-04-19
  */
 public class DisplayUtil {
-    private static final String TAG = DisplayUtil.class.getSimpleName();
 
     /**
      * 获取 显示信息
@@ -34,7 +33,7 @@ public class DisplayUtil {
         sb.append("\nscaledDensity   :").append(dm.scaledDensity);
         sb.append("\nxdpi            :").append(dm.xdpi);
         sb.append("\nydpi            :").append(dm.ydpi);
-        Logger.i(TAG, sb.toString());
+        Logger.i(sb.toString());
         return dm;
     }
 }

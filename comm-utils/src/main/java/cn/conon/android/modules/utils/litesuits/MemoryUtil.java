@@ -6,7 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.text.format.Formatter;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * Get memory info.
@@ -15,7 +15,6 @@ import cn.conon.android.modules.utils.Logger;
  * @date 2015-04-19
  */
 public class MemoryUtil {
-    private static final String TAG = MemoryUtil.class.getSimpleName();
     private static final String MEM_INFO_PATH = "/proc/meminfo";
 
     /**
@@ -61,7 +60,7 @@ public class MemoryUtil {
      */
     public static String printMemInfo() {
         String info = FileUtil.getFileOutputString(MEM_INFO_PATH);
-        Logger.i(TAG, "_______  内存信息:   \n" + info);
+        Logger.i("_______  内存信息:   \n" + info);
         return info;
     }
 
@@ -90,7 +89,7 @@ public class MemoryUtil {
         sb.append("\navailMem        :").append(mi.availMem);
         sb.append("\nlowMemory       :").append(mi.lowMemory);
         sb.append("\nthreshold       :").append(mi.threshold);
-        Logger.i(TAG, sb.toString());
+        Logger.i(sb.toString());
         return mi;
     }
 

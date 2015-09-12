@@ -8,11 +8,11 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.conon.android.modules.utils.Logger;
+import cn.conon.android.modules.utils.log.Logger;
 
 /**
  * Get phone info, such as IMEI,IMSI,Number,Sim State, etc.
- *
+ * <p/>
  * <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
  *
  * @author MaTianyu
@@ -20,7 +20,6 @@ import cn.conon.android.modules.utils.Logger;
  */
 public class TelephoneUtil {
 
-    private static final String TAG = TelephoneUtil.class.getSimpleName();
 
     /**
      * IMSI是国际移动用户识别码的简称(International Mobile Subscriber Identity)
@@ -38,7 +37,7 @@ public class TelephoneUtil {
     public static String getIMSI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String IMSI = telephonyManager.getSubscriberId();
-        Logger.i(TAG, " IMSI：" + IMSI);
+        Logger.i(" IMSI：" + IMSI);
         return IMSI;
     }
 
@@ -54,7 +53,7 @@ public class TelephoneUtil {
     public static String getIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String IMEI = telephonyManager.getDeviceId();
-        Logger.i(TAG, " IMEI：" + IMEI);
+        Logger.i(" IMEI：" + IMEI);
         return IMEI;
     }
 
@@ -97,7 +96,7 @@ public class TelephoneUtil {
         sb.append("\nSubscriberId         :").append(tm.getSubscriberId());
         sb.append("\nVoiceMailNumber      :").append(tm.getVoiceMailNumber());
 
-        Logger.i(TAG, sb.toString());
+        Logger.i(sb.toString());
         return sb.toString();
     }
 
@@ -118,19 +117,19 @@ public class TelephoneUtil {
         @Override
         public String toString() {
             return "TeleInfo{" +
-                   "imsi_1='" + imsi_1 + '\'' +
-                   ", imsi_2='" + imsi_2 + '\'' +
-                   ", imei_1='" + imei_1 + '\'' +
-                   ", imei_2='" + imei_2 + '\'' +
-                   ", phoneType_1=" + phoneType_1 +
-                   ", phoneType_2=" + phoneType_2 +
-                   '}';
+                    "imsi_1='" + imsi_1 + '\'' +
+                    ", imsi_2='" + imsi_2 + '\'' +
+                    ", imei_1='" + imei_1 + '\'' +
+                    ", imei_2='" + imei_2 + '\'' +
+                    ", phoneType_1=" + phoneType_1 +
+                    ", phoneType_2=" + phoneType_2 +
+                    '}';
         }
     }
 
     /**
      * MTK Phone.
-     *
+     * <p/>
      * 获取 MTK 神机的双卡 IMSI、IMSI 信息
      */
     public static TeleInfo getMtkTeleInfo(Context context) {
@@ -168,13 +167,13 @@ public class TelephoneUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Logger.i(TAG, "MTK: " + teleInfo);
+        Logger.i("MTK: " + teleInfo);
         return teleInfo;
     }
 
     /**
      * MTK Phone.
-     *
+     * <p/>
      * 获取 MTK 神机的双卡 IMSI、IMSI 信息
      */
     public static TeleInfo getMtkTeleInfo2(Context context) {
@@ -210,7 +209,7 @@ public class TelephoneUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Logger.i(TAG, "MTK2: " + teleInfo);
+        Logger.i("MTK2: " + teleInfo);
         return teleInfo;
     }
 
@@ -247,13 +246,13 @@ public class TelephoneUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Logger.i(TAG, "Qualcomm: " + teleInfo);
+        Logger.i("Qualcomm: " + teleInfo);
         return teleInfo;
     }
 
     /**
      * Spreadtrum Phone.
-     *
+     * <p/>
      * 获取 展讯 神机的双卡 IMSI、IMSI 信息
      */
     public static TeleInfo getSpreadtrumTeleInfo(Context context) {
@@ -284,7 +283,7 @@ public class TelephoneUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Logger.i(TAG, "Spreadtrum: " + teleInfo);
+        Logger.i("Spreadtrum: " + teleInfo);
         return teleInfo;
     }
 }
