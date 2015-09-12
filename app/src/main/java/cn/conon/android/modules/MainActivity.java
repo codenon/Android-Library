@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
         Logger.object(this);
         Logger.object(getMenuInflater());
+        Logger.d(getIntent(), "");
     }
 
     @Override

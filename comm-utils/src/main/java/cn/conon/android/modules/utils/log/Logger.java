@@ -17,10 +17,7 @@ public final class Logger {
     }
 
     public static boolean isDebuggable() {
-//        Log.i("Logger build config :", "" + BuildConfig.DEBUG);
-//        return BuildConfig.DEBUG;
-        return true;
-        //return BuildConfig.DEBUG || Log.isLoggable(TAG, Log.VERBOSE);
+        return BuildConfig.DEBUG;
     }
 
     /**

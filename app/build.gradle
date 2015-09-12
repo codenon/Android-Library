@@ -22,5 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile project(':comm-utils')
+    releaseCompile project(path: ':comm-utils', configuration: 'release')
+    debugCompile project(path: ':comm-utils', configuration: 'debug')
 }
