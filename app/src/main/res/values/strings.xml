@@ -1,6 +1,28 @@
 <resources>
-    <string name="app_name">android-modules</string>
+    <string name="app_name">Android Library</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="title">视频名称</string>
+    <string name="timelength">时长</string>
+    <string name="button">保存</string>
+    <string name="error">保存失败</string>
+    <string name="videofile">文件</string>
+    <string name="filenoexist">文件不存在</string>
+    <string name="success">保存成功</string>
+    <string name="sdcarderror">SDCard不存在或者写保护</string>
+
+
+    <string name="downloadpath">下载路径</string>
+    <string name="download">下载</string>
+    <string name="download_success">下载完成</string>
+    <string name="download_error">下载失败</string>
+
+
+    <string name="filename">视频文件</string>
+    <string name="upload">上传</string>
+    <string name="upload_success">上传成功</string>
+    <string name="upload_error">上传失败</string>
+    <string name="notexsit">文件不存在</string>
 </resources>
